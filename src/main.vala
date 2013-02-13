@@ -91,16 +91,28 @@ namespace LedBorg {
 				{
 					operation_get_colour();
 				}
+				else if(_operation.down() == "set")
+				{
+					operation_set_colour();
+				}
 			}
 
 			return 0;
 		}
 
 
+		public static void operation_set_colour()
+		{
+			Colour col = Colour.with_rgb(colour);
+			Colour col_returned = client.set_colour_on_server(col);
+			stdout.printf("%s\n", col.get_ledborg_value());
+		}
+
+
 		public static void operation_get_colour()
 		{
-			Colour colour = client.get_colour_from_server();
-			stdout.printf("%s\n", colour.get_ledborg_value());
+			Colour col = client.get_colour_from_server();
+			stdout.printf("%s\n", col.get_ledborg_value());
 		}
 
 	}	
